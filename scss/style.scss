@@ -4,6 +4,36 @@
 @use "variables" as var;
 @use "base";
 
+body {
+  background: var.$bg; // change the background color using the variable $bg
+  text-align: center;
+  margin-top: 60px;
+  margin: 60;
+  display: flex;
+  // place-items: left;
+  // min-width: 320px;
+  // min-height: 100vh;
+}
+
+button {
+  border: 0;
+  border-radius: 5px;
+  background: #c4b2b2;
+
+  &:hover {
+    background: #800;
+  }
+
+  &-primary {
+    background: #3ab;
+  }
+
+  .container & {
+    text-align: right;
+  }
+
+}
+
 // h1 {
 //   color: var.$primary;
 // }
@@ -31,17 +61,6 @@
 // a:hover {
 //   color: #535bf2;
 // }
-
-body {
-  background: var.$bg; // change the background color using the variable $bg
-  text-align: center;
-  margin-top: 60px;
-  margin: 60;
-  display: flex;
-  // place-items: left;
-  // min-width: 320px;
-  // min-height: 100vh;
-}
 
 // h1 {
 //   font-size: 3.2em;
