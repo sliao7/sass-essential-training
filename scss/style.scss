@@ -15,25 +15,49 @@ body {
   // min-height: 100vh;
 }
 
-.button {
-  border: 0;
+
+// mixins are like functions. They can be very flexible
+@mixin button($col:#d0c2c2) {
+  background-color: $col;
   border-radius: 5px;
-  background: #c4b4c4b2;
+}
+
+.button {
+  @include button;
 
   &:hover {
-    background: #800;
+   background: #800;
   }
+  
 
   &-primary {
-    background: #3ab;
+    @include button($col: #3ab);
+    color: yellow;
   }
-
-  .container & {
-    float: right;
-    margin-left: 0.5em;
-  }
-
 }
+
+
+// selector starting with a period indicates it is a class selector
+// .button {
+//   border: 0;
+//   border-radius: 5px;
+//   background: #c4b4c4b2;
+
+//   &:hover {
+//     background: #800;
+//   }
+
+// will be used as button button-primary
+//   &-primary {
+//     background: #3ab;
+//   }
+
+//   .container & {
+//     float: right;
+//     margin-left: 0.5em;
+//   }
+
+// }
 
 // h1 {
 //   color: var.$primary;
