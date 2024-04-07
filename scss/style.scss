@@ -16,27 +16,48 @@ body {
 }
 
 
-// mixins are like functions. They can be very flexible
-@mixin button($col:#d0c2c2) {
-  background-color: $col;
-  border-radius: 5px;
-}
-
+// extend is more efficient than mixins as it does not copy
 .button {
-  @include button;
-
+  border: 0;
   &:hover {
-   background: #800;
+    background: white;
   }
   
-
   &-primary {
-    @include button($col: #3ab);
-    color: yellow;
+    @extend .button;
+    background: #3ab;
   }
+
+  &-secondary {
+    @extend .button;
+    background: orange;
+  }
+
 }
 
 
+// mixins are like functions. They can be very flexible
+// @mixin button($col:#d0c2c2) {
+//   background-color: $col;
+//   border-radius: 5px;
+// }
+
+// .button {
+//   @include button; // basically copy the button mixin
+
+//   &:hover {
+//    background: #800;
+//   }
+  
+
+//   &-primary {
+//     @include button($col: #3ab);
+//     color: yellow;
+//   }
+// }
+
+
+// Parent selector
 // selector starting with a period indicates it is a class selector
 // .button {
 //   border: 0;
