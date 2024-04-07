@@ -15,28 +15,78 @@ body {
   // min-height: 100vh;
 }
 
+// Interpolation
 
-// extend is more efficient than mixins as it does not copy
-.button {
-  border: 0;
+@mixin button($name:"", $bg: #444, $color: white) {
+  .button#{$name} {
+    background: $bg;
+    color: $color;
+  }
+}
+
+@include button;
+@include button("-primary", #3ab5e9);
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Chapter 2 Sass Fundamentals challenge soluntion using mixin, nesting, and parent selector
+@mixin msg($color:#888) {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: $color;
+  font-size: 1rem;
+  color: white;
+  padding: 1rem 1.25rem;
+  margin: 1em 0;
+  display: inline-block;
+  cursor: pointer;
+  
   &:hover {
-    background: white;
+    background: #555;
+  }
+
+  h1 {
+    margin: 0 0 0.2em 0;
+    font-size: 2.5em;
   }
   
-  &-primary {
-    @extend .button;
-    background: #3ab;
-  }
+}
 
-  &-secondary {
-    @extend .button;
-    background: orange;
-  }
+.msg {
+  @include msg;
 
+  &-info {
+    background: var.$theme;
+    &:hover {
+      background: #1a5353;
+    }
+  }
 }
 
 
-// mixins are like functions. They can be very flexible
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Extend: more efficient than mixins as it does not copy
+// .button {
+//   border: 0;
+//   &:hover {
+//     background: white;
+//   }
+  
+//   &-primary {
+//     @extend .button;
+//     background: #3ab;
+//   }
+
+//   &-secondary {
+//     @extend .button;
+//     background: orange;
+//   }
+
+// }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Mixins: like functions, very flexible
 // @mixin button($col:#d0c2c2) {
 //   background-color: $col;
 //   border-radius: 5px;
@@ -57,6 +107,7 @@ body {
 // }
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Parent selector
 // selector starting with a period indicates it is a class selector
 // .button {
@@ -84,6 +135,10 @@ body {
 //   color: var.$primary;
 // }
 
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//The following code was generated automatically when the file was created
 // :root {
 //   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 //   line-height: 1.5;
