@@ -3,34 +3,112 @@
 // $bg: #ead;
 @use "variables" as var;
 @use "base";
+@use "sass:color";
 
-body {
-  background: var.$bg; // change the background color using the variable $bg
-  text-align: center;
-  margin-top: 60px;
-  margin: 60;
-  display: flex;
-  // place-items: left;
-  // min-width: 320px;
-  // min-height: 100vh;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// Chapter 2 challenge solution. Applying mixin, each, map, if, else, and color method to create badges systematically
+$black_ratio: 50%;
+
+$badges: (
+    "-primary": (
+        var.$primary,
+        White
+    ),
+
+    "-danger": (
+        red,
+        White
+    ),
+
+    "info": (
+        var.$secondary,
+        white
+    )
+);
+
+@mixin badge($name: "", $background_color: grey, $color:white, $style: null) {
+    
+    .badge#{$name} {
+        border: 0;
+        @if $style == 'pill' {
+            border-radius: 30px !important;
+            padding: 0, 0.6em !important;
+        } @else {
+            border-radius: 5px;
+            padding: 0, 0.3em;
+        }
+        
+        background: $background_color;
+        font-size: 0.8em;
+        color: $color;
+        margin: 0.1em;
+        display: inline-block;
+        cursor: pointer;
+        &:hover {
+            background: color.scale($background_color, $lightness: -30%)
+        }
+      }
 }
 
-// Interpolation
-
-@mixin button($name:"", $bg: #444, $color: white) {
-  .button#{$name} {
-    background: $bg;
-    color: $color;
-  }
+  
+@include badge("");
+@include badge("pill");
+@each $key, $values in $badges {
+    @include badge($key, $values...)
 }
+  
 
-@include button;
-@include button("-primary", #3ab5e9);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//// Lists: s
+//// paces, commas; 
+//// brackets [] or parenthesis (); 
+//// quote when spaces
+//// indexed at 1;
+//// All the following $myArray are the same!
+$myArray: primary secondary warning "item info";
+$myArray: primary, secondary, warning, "item info";
+// $myArray: [primary, secondary, warning, "item info" ];  not working
+$myArray: (primary, secondary, warning, "item info" );
+
+//// List methods:
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Chapter 2 Sass Fundamentals challenge soluntion using mixin, nesting, and parent selector
-@mixin msg($color:#888) {
+// Placeholder Selectors. Starts with %, it won't be created itself
+%button {
+  background: #444;
+  color: white;
+}
+
+.button {
+  @extend %button;
+  background: #3ab5e9;
+}
+
+.button-primary {
+  @extend %button;
+  background: orange;
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//// Interpolation: easy to create a series of stuff
+// @mixin button($name:"", $bg: #444, $color: white) {
+//   .button#{$name} {
+//     background: $bg;
+//     color: $color;
+//   }
+// }
+
+// @include button;
+// @include button("-primary", #3ab5e9);
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//// Chapter 2 Sass Fundamentals challenge soluntion using mixin, nesting, and parent selector
+@mixin msg($color:color.scale(var.$primary, $blackness: -50%)) {
   border: 1px solid #ddd;
   border-radius: 5px;
   background: $color;
@@ -56,16 +134,20 @@ body {
   @include msg;
 
   &-info {
-    background: var.$theme;
+    background: var.$primary;
     &:hover {
       background: #1a5353;
     }
+  }
+
+  &-info-darker {
+    background: color.scale(var.$primary, $blackness: 50%);
   }
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Extend: more efficient than mixins as it does not copy
+//// Extend: more efficient than mixins as it does not copy
 // .button {
 //   border: 0;
 //   &:hover {
@@ -86,7 +168,7 @@ body {
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Mixins: like functions, very flexible
+//// Mixins: like functions, very flexible
 // @mixin button($col:#d0c2c2) {
 //   background-color: $col;
 //   border-radius: 5px;
@@ -108,8 +190,8 @@ body {
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Parent selector
-// selector starting with a period indicates it is a class selector
+//// Parent selector
+//// A selector starting with a period indicates it is a class selector
 // .button {
 //   border: 0;
 //   border-radius: 5px;
@@ -138,7 +220,7 @@ body {
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//The following code was generated automatically when the file was created
+//// The following code was generated automatically when the file was created
 // :root {
 //   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 //   line-height: 1.5;

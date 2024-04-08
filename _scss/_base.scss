@@ -1,7 +1,7 @@
 @use "variables";
 
-body {
-    background: variables.$bg;
+.body {
+    background: variables.$primary;
     font-family: Arial, Helvetica, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
